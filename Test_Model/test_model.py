@@ -1,0 +1,31 @@
+import gensim
+model = gensim.models.Word2Vec.load("./final/MedHelp.model")
+model_wiki = gensim.models.Word2Vec.load("./final/wiki.model")
+model_pub= gensim.models.Word2Vec.load("./final/PubMed.model")
+while(1):
+	try:
+		query = raw_input("Input your query:")
+		#print(type(query))
+		print("##############Med_Help##############")
+		print(model.most_similar(query))
+		print("################PUB#################")
+		print(model_pub.most_similar(query))
+		print("##############Wiki####################")
+		print(model_wiki.most_similar(query))
+		keywords = raw_input("Negative words: ")
+		print("************Med_Help***********")
+		print(model.most_similar(positive=[query],negative=[keywords]))
+		print("*************Wiki*************")
+		print(model_wiki.most_similar(positive=[query],negative=[keywords]))
+		print("*************PUB**************")
+		print(model_pub.most_similar(positive=[query],negative=[keywords]))
+		print("distance between: ")
+		print("################Med_Help#################")
+		print(model.similarity(query,keywords))
+		print("################wiki#################")
+		print(model_wiki.similarity(query,keywords))
+		print("################pub#################")
+		print(model_pub.similarity(query,keywords))
+		
+	except:
+		print("Not in the dictionary\n\n")
